@@ -16,13 +16,15 @@ spec:
     spec:
       containers:
       - name: davfs-server
-        image: bytemark/webdav
+        image: twizzel/webdav
         ports:
-        - containerPort: 80
+        - containerPort: 443
         env:
         - name: AUTH_TYPE
-          value: "Digest"
+          value: "Basic"
         - name: USERNAME
           value: "admin"
         - name: PASSWORD
           value: "admin"
+        - name: SSL_CERT
+          value: "selfsigned"

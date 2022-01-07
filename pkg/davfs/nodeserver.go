@@ -83,7 +83,11 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
 				glog.V(5).Infof("Missing password")
 			}
 		}
-		cmd.Stdin = strings.NewReader(fmt.Sprintf("%s\n%s", username, password))
+		if strings.HasPrefix(strings.ToLower(source), "https://") {
+			cmd.Stdin = strings.NewReader(fmt.Sprintf("%s\n%s\n%s", username, password, "y"))
+		} else {
+			cmd.Stdin = strings.NewReader(fmt.Sprintf("%s\n%s", username, password))
+		}
 	}
 	for _, o := range flags {
 		cmd.Args = append(cmd.Args, "-o", o)

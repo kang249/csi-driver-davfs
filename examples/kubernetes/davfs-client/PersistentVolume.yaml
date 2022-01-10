@@ -14,7 +14,8 @@ spec:
     driver: csi-davfsplugin
     volumeHandle: data-id
     volumeAttributes:
-      server: https://davfs-server.example.svc.cluster.local
+      protocol: https
+      server: davfs-server.example.svc.cluster.local
       share: /
     nodePublishSecretRef:
       namespace: example

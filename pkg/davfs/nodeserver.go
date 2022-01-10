@@ -60,7 +60,12 @@ func (ns *nodeServer) NodePublishVolume(ctx context.Context, req *csi.NodePublis
 	}
 
 	credentials := req.GetSecrets()
-	source := fmt.Sprintf("%s%s",
+	protocol := req.GetVolumeContext()["protocol"]
+	if len(protocol) == 0 {
+		protocol = "http"
+	}
+	source := fmt.Sprintf("%s://%s%s",
+		protocol,
 		req.GetVolumeContext()["server"],
 		req.GetVolumeContext()["share"],
 	)

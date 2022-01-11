@@ -114,6 +114,16 @@ roleRef:
   kind: ClusterRole
   name: external-attacher-runner
   apiGroup: rbac.authorization.k8s.io
+apiVersion: storage.k8s.io/v1
+kind: CSIDriver
+metadata:
+  name: csi-davfsplugin
+spec:
+  attachRequired: false
+  podInfoOnMount: false
+  volumeLifecycleModes:
+    - Persistent
+    - Ephemeral
 ---
 apiVersion: v1
 kind: Namespace
